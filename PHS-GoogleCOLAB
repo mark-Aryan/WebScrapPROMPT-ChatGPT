@@ -1,0 +1,35 @@
+import requests
+from bs4 import BeautifulSoup
+
+# Specify the URL of the webpage
+url = "https://phs.nebo.edu/faculty"
+
+# Send a GET request to the URL
+response = requests.get(url)
+
+# Check if the request was successful (status code 200)
+if response.status_code == 200:
+    # Parse the HTML content of the page
+    soup = BeautifulSoup(response.content, 'html.parser')
+
+    # Find all elements with class 'views-row'
+    rows = soup.find_all(class_='views-row')
+
+    # Loop through each 'views-row' element
+    for row in rows:
+        # Extract data from the 'views-field-title' element
+        title = row.find(class_='views-field-title').find(class_='field-content').text.strip()
+
+        # Extract data from the 'views-field-field-position' element
+        position = row.find(class_='views-field-field-position').find(class_='field-content').text.strip()
+
+        # Extract email content from the 'views-field-field-email' element
+        email_element = row.find(class_='views-field-field-email').find(class_='field-content')
+        email = email_element.find('a')['href'] if email_element.find('a') else None
+
+        # Print the extracted data
+        print(f"{title}#{position}#{email}")
+        print("------")
+
+else:
+    print(f"Failed to retrieve the webpage. Status Code: {response.status_code}")
