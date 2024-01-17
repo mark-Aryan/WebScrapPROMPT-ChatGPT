@@ -1,3 +1,4 @@
+Act as a expert python developer, and covert the code to also saperate first name and last name with space:
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
