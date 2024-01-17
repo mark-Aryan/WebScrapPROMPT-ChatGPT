@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd
 
 # Specify the URL of the webpage
 url = "https://phs.nebo.edu/faculty"
@@ -15,6 +16,9 @@ if response.status_code == 200:
     # Find all elements with class 'views-row'
     rows = soup.find_all(class_='views-row')
 
+    # Create lists to store extracted data
+    names, titles, emails = [], [], []
+
     # Loop through each 'views-row' element
     for row in rows:
         # Extract data from the 'views-field-title' element
@@ -25,11 +29,23 @@ if response.status_code == 200:
 
         # Extract email content from the 'views-field-field-email' element
         email_element = row.find(class_='views-field-field-email').find(class_='field-content')
-        email = email_element.find('a')['href'] if email_element.find('a') else None
+        email = email_element.find('a')['href'][7:] if email_element.find('a') else None
 
-        # Print the extracted data
-        print(f"{title}#{position}#{email}")
-        print("------")
+        # Extract data from the 'views-field-title' element
+        name = row.find(class_='views-field-title').find('a').text.strip()
+
+        # Append data to the lists
+        names.append(name)
+        titles.append(position)
+        emails.append(email)
+
+    # Create a DataFrame
+    df = pd.DataFrame({'Name': names, 'Email': emails, 'Title': titles})
+
+    # Save DataFrame to an Excel file
+    df.to_excel('faculty_data.xlsx', index=False)
+
+    print("Data saved to faculty_data.xlsx")
 
 else:
     print(f"Failed to retrieve the webpage. Status Code: {response.status_code}")
