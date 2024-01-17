@@ -1,16 +1,19 @@
 Act as a expert python programmer and create a script to extract data from the given web page using Beautyfulsoup.
 
-The webpage is: https://www.wcpss.net/domain/4934
-The area to extract is having class name : cs-searchdiv
-Each staf have there on div with class name: cs-staff
+The webpage is: https://phs.nebo.edu/faculty
+The area to extract is having class name : view-content
+Each staf have there on div with class name: views-row
 
-From element having class name: cs-staffleft i want to extract "cs-staffmiddle" content:
-1. cs-staffname
-2. cs-staffjob
-From element having class name: cs-staffcontactdiv i want to extract  span elemt having class "cs-staffcontentvalue".
-
-I want all the  "cs-staff" div content in same manner 
+From element having class name: views-field-title i want to extract element having class name: field-content
+From element having class name: views-field-field-position i want to extract element having class name: field-content
+From element having class name: views-field-field-email i want to extract email content from the element having class name: field-content in views-field-field-email
+I want all the  "views-row" div content in same manner 
 
 Create a python script correctoly and efficently.
 
 The copied elemt is here:
+[COPIED ELEMENT]
+
+The Eail element is here:
+[COPIED ELEMENT]
+
